@@ -3,6 +3,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { UserLoginDto } from './dto/user-login.dto';
+import { UserInfo } from './UserInfo';
 
 @Controller('users')
 export class UsersController {
@@ -15,19 +16,20 @@ export class UsersController {
 
   @Post('/email-verify')
   async verifyEmail(@Query() dto: VerifyEmailDto): Promise<void> {
-    console.log(dto);
+    const { signupVerifyToken } = dto;
+    // return await this.usersService.verifyEmail(signupVerifyToken);
     return;
   }
 
   @Post('/login')
   async login(@Body() dto: UserLoginDto): Promise<void> {
-    console.log(dto);
+    const { email, password } = dto;
+    // return await this.usersService.login(email, password);
     return;
   }
 
   @Get('/:id')
-  async getUserInfo(@Param('id') userId: string): Promise<void> {
-    console.log(userId);
-    return;
+  async getUserInfo(@Param('id') userId: string): Promise<UserInfo> {
+    return await this.usersService.getUserInfo(userId);
   }
 }
