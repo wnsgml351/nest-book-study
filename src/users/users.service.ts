@@ -1,4 +1,3 @@
-import * as uuid from 'uuid';
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,6 +9,8 @@ export class UsersService {
   constructor(private emailService: EmailService) {}
 
   async createUser(name: string, email: string, password: string) {
+    const uuid = require('uuid');
+
     await this.checkUserExists(email);
 
     const signupVerifyToken = uuid.v1();
